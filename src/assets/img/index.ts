@@ -1,0 +1,12 @@
+export { default as world1 } from "./card/world/1.jpg";
+export { default as world2 } from "./card/world/2.jpg";
+export { default as world3 } from "./card/world/3.jpg";
+export { default as recent1 } from "./card/recent/1.jpg";
+export { default as recent2 } from "./card/recent/2.jpg";
+export { default as recent3 } from "./card/recent/3.jpg";
+export { default as social1 } from "./card/social/1.jpg";
+export { default as social2 } from "./card/social/2.jpg";
+export { default as social3 } from "./card/social/3.jpg";
+export { default as recommend1 } from "./card/recommend/1.jpg";
+export { default as recommend2 } from "./card/recommend/2.jpg";
+export { default as recommend3 } from "./card/recommend/3.jpg";

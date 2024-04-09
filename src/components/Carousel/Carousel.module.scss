@@ -1,5 +1,5 @@
 .container {
-    margin: 10px 0;
+    padding: 10px 0;
     overflow: hidden;
 }
 
@@ -8,6 +8,7 @@
     width: max-content;
     list-style: none;
     padding: 0;
+    transform: translateX(-682.5);
 }
 
 .slider_item {

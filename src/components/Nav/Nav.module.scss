@@ -6,6 +6,9 @@
     position: sticky;
     top: 0;
     overflow: hidden;
+    background-image: url(../../assets/img/background.jpg);
+    background-size: cover;
+    z-index: 1;
   
 }
 
@@ -18,8 +21,8 @@
     gap: 20px;
     width: max-content;
     height: 100%;
-    font-weight: 700;
-    background-color: pink;
+    font-weight: 400;
+    color: $main-color;
 }
 
 .nav_menu_item {
