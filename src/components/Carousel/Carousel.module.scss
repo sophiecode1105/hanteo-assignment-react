@@ -1,0 +1,23 @@
+.container {
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.slider_wrapper {
+    display: flex;
+    width: max-content;
+    list-style: none;
+    padding: 0;
+}
+
+.slider_item {
+    width: 350px !important;
+    height: 130px;
+    background-color: red;
+    border-radius: 10px 10px 0 0;
+    float: left;
+}
+
+.slider_item:not(:last-child) {
+    margin-right: 10px;
+}
