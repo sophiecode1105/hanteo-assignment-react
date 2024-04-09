@@ -1,13 +1,18 @@
 :root {
-  max-width: 425px;
-  margin: 0 auto;
   background-color: #F7F7F7;
 }
 
-.global {
-    width: 100%;
-    min-height: 100vh;
-    background-color: red;
-    background-color: #FFFFFF;
-
+body {
+    margin: 0;
 }
+
+.global {
+    min-height: 100vh;
+    max-width: 425px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #FFFFFF;
+    border: 2px solid red;
+}
+
