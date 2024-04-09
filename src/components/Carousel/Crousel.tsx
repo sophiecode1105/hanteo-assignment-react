@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.scss";
+import banner1 from "../../assets/img/banner/main_banner_1.png";
+import banner2 from "../../assets/img/banner/main_banner_2.png";
+import banner3 from "../../assets/img/banner/main_banner_3.png";
 
 /* 목표: 재활용가능한 carousel만들기. 움직이는 갯수 및 사이즈에 관련없이 작동하도록 구현. */
 const Carousel = () => {
+  /* 페이지별로 다른 이미지, 이미지 개수를 내려줘야할때는 Props를 활용할수있습니다. 
+  과제여구조건은 동일한 페이지를 구현해야하므로 props로 동적이게 내려받을 필요는 없어보였습니다. */
   const sliders = useRef<HTMLUListElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const [slidertWidth, setSliderWidth] = useState(350);
   const [marginRight, setMarginRight] = useState(10);
   const [initialTranslateX, setInitialTranslateX] = useState(682.5);
-  const [slideList, setSliderList] = useState([1, 2, 3]);
+  const [slideList, setSliderList] = useState([banner1, banner2, banner3]);
   const [isMoving, setisMoving] = useState(false);
   const [currentIdx, setcurrentIdx] = useState(0);
   //복사해줄 요소의 갯수
@@ -18,7 +23,7 @@ const Carousel = () => {
   const delays = 0.5;
 
   /* 초기 셋팅을 해주는 함수. 앞뒤로 복사해줄 요소를 복사해줍니다. bufferSize와 moveFactor가 변경하여도 문제없이 작동하도록 합니다.*/
-  const setList = (initialList: number[]) => {
+  const setList = (initialList: string[]) => {
     const newList = [
       ...initialList.slice(-bufferSize),
       ...initialList,
@@ -104,7 +109,11 @@ const Carousel = () => {
         {slideList.map((slider, idx) => {
           return (
             <li key={`slider-${idx}`} className={styles.slider_item}>
-              {slider}
+              <img
+                className={styles.slider_banner}
+                src={slider}
+                alt={`banner-img-${idx}`}
+              />
             </li>
           );
         })}
