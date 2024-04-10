@@ -1,72 +1,61 @@
-import Card from "../../components/Card/Card";
+import { fetchCardData } from "../../assets/data/cardData";
+import Card, { ChartData } from "../../components/Card/Card";
 import Carousel from "../../components/Carousel/Crousel";
 import styles from "./Main.module.scss";
-
-import {
-  world1,
-  world2,
-  world3,
-  recent1,
-  recent2,
-  recent3,
-  social1,
-  social2,
-  social3,
-  recommend1,
-  recommend2,
-  recommend3,
-} from "../../assets/img/";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const Main = () => {
-  const cardList = [
-    {
-      title: "주간월드 TOP5",
-      list: [
-        { img: world1, singer: "투모로우바이투게더" },
-        { img: world2, singer: "(여자)아이들" },
-        { img: world3, singer: "아이브" },
-      ],
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const target = useRef<HTMLDivElement | null>(null);
+
+  const [cardList, setCardList] = useState<ChartData[]>([]);
+
+  const addPages = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await fetchCardData(page);
+        console.log("에?", result);
+        if (result.length === 0) console.log("no more data to fetch");
+        else setCardList((prevList) => [...prevList, ...result]);
+      } catch (error) {
+        console.error("Error fetching card data:", error);
+      } finally {
+        setIsLoading(false); // 데이터 로딩이 완료되면 로딩 상태 변경합니다.
+      }
+    };
+
+    fetchData();
+  }, [page]);
+
+  const callback = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting && !isLoading) {
+        addPages();
+      }
     },
-    {
-      title: "진행중인 초동기록",
-      list: [
-        { img: recent1, singer: "투모로우바이투게더" },
-        { img: recent2, singer: "minisode 3: TOMORROW: 미내앨범 6집" },
-        { img: recent3, singer: "HOPE ON THE STREET VOL1" },
-      ],
-    },
-    {
-      title: "최근 초동기로 TOP5",
-      list: [
-        { img: recent1, singer: "DREAM()SCAPE, DREAMini Ver." },
-        { img: recent2, singer: "(여자)아이들" },
-        { img: recent3, singer: "아이브" },
-      ],
-    },
-    {
-      title: "주간 소셜차트 TOP5",
-      list: [
-        { img: social1, singer: "투모로우바이투게더" },
-        { img: social2, singer: "(여자)아이들" },
-        { img: social3, singer: "아이브" },
-      ],
-    },
-    {
-      title: "추천 아티스트",
-      list: [
-        { img: recommend1, singer: "tripleS" },
-        { img: recommend2, singer: "STAYC" },
-        { img: recommend3, singer: "NCT DREAMS" },
-      ],
-    },
-  ];
+    [isLoading]
+  );
+
+  useEffect(() => {
+    if (!target.current) return;
+    const observer = new IntersectionObserver(callback);
+    observer.observe(target.current);
+    return () => observer.disconnect();
+  }, [callback, target]);
 
   return (
     <div className={styles.container}>
       <Carousel />
-      {cardList.map((card, idx) => (
+      {cardList?.map((card, idx) => (
         <Card key={`card-${idx}`} chartData={card} />
       ))}
+      <div ref={target}>Loading...</div>
     </div>
   );
 };
