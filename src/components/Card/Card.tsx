@@ -1,6 +1,6 @@
 import styles from "./Card.module.scss";
 
-export type ChardData = {
+export type ChartData = {
   title: string;
   list: {
     img: string;
@@ -8,7 +8,7 @@ export type ChardData = {
   }[];
 };
 
-const Card = ({ chartData }: { chartData: ChardData }) => {
+const Card = ({ chartData }: { chartData: ChartData }) => {
   const { title, list } = chartData;
   return (
     <section className={styles.container}>
