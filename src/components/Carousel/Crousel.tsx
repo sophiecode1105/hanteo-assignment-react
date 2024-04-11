@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.scss";
 import banner1 from "../../assets/img/banner/main_banner_1.png";
 import banner2 from "../../assets/img/banner/main_banner_2.png";
 import banner3 from "../../assets/img/banner/main_banner_3.png";
+import arrow_left from "../../assets/icon/arrow_left.svg";
+import arrow_right from "../../assets/icon/arrow_right.svg";
 
 /* 목표: 재활용가능한 carousel만들기. 움직이는 갯수 및 사이즈에 관련없이 작동하도록 구현. */
 const Carousel = () => {
@@ -13,23 +15,28 @@ const Carousel = () => {
   const [slidertWidth, setSliderWidth] = useState(350);
   const [marginRight, setMarginRight] = useState(10);
   const [initialTranslateX, setInitialTranslateX] = useState(682.5);
-  const [slideList, setSliderList] = useState([banner1, banner2, banner3]);
+  const [slideList, setSliderList] = useState([
+    { idx: 0, img: banner1 },
+    { idx: 1, img: banner2 },
+    { idx: 2, img: banner3 },
+  ]);
   const [isMoving, setisMoving] = useState(false);
   const [currentIdx, setcurrentIdx] = useState(0);
+
   //복사해줄 요소의 갯수
   const bufferSize = 2;
   //한번에 이동할 요소의 갯수
   const moveFactor = 1;
   const delays = 0.5;
-
   /* 초기 셋팅을 해주는 함수. 앞뒤로 복사해줄 요소를 복사해줍니다. bufferSize와 moveFactor가 변경하여도 문제없이 작동하도록 합니다.*/
-  const setList = (initialList: string[]) => {
+  const setList = (initialList: { idx: number; img: string }[]) => {
     const newList = [
       ...initialList.slice(-bufferSize),
       ...initialList,
       ...initialList.slice(0, bufferSize),
     ];
     setSliderList(newList);
+
     const newIdx = bufferSize + currentIdx;
     setcurrentIdx(newIdx);
   };
@@ -103,6 +110,17 @@ const Carousel = () => {
     setList(slideList);
   }, []);
 
+  const intervalCallback = useCallback(() => {
+    moveSlider(1);
+    console.log("?", slideList);
+  }, [slideList]);
+
+  useEffect(() => {
+    // setInterval 내부의 함수를 useCallback을 사용하여 만들어서 slideList를 참조할 수 있도록 합니다.
+    const interval = setInterval(intervalCallback, 3000);
+    return () => clearInterval(interval);
+  }, [slideList]);
+
   return (
     <div className={styles.container} ref={container}>
       <ul className={styles.slider_wrapper} ref={sliders}>
@@ -111,7 +129,7 @@ const Carousel = () => {
             <li key={`slider-${idx}`} className={styles.slider_item}>
               <img
                 className={styles.slider_banner}
-                src={slider}
+                src={slider.img}
                 alt={`banner-img-${idx}`}
               />
             </li>
@@ -119,20 +137,35 @@ const Carousel = () => {
         })}
       </ul>
       <div>
-        <button
-          onClick={() => {
-            moveSlider(-1);
-          }}
-        >
-          왼쪽
-        </button>
-        <button
-          onClick={() => {
-            moveSlider(1);
-          }}
-        >
-          오른쪽
-        </button>
+        <div className={styles.button_wrapper}>
+          <button
+            onClick={() => {
+              moveSlider(-1);
+            }}
+          >
+            <img src={arrow_left} alt="arrow_left" />
+          </button>
+
+          {Array.from(
+            { length: slideList.length - bufferSize * 2 },
+            (_, idx) => (
+              <div
+                key={`button-${idx}`}
+                className={`${styles.default_button} ${
+                  slideList[currentIdx].idx === idx ? styles.button_color : ""
+                }`}
+              ></div>
+            )
+          )}
+
+          <button
+            onClick={() => {
+              moveSlider(1);
+            }}
+          >
+            <img src={arrow_right} alt="arrow_right" />
+          </button>
+        </div>
       </div>
     </div>
   );

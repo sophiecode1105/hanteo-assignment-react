@@ -33,3 +33,31 @@
 .slider_item:not(:last-child) {
     margin-right: 10px;
 }
+
+.default_button {
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: grey;
+}
+
+.button_color {
+    background-color: blue;
+}
+
+
+
+.button_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.button_wrapper >button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+}
