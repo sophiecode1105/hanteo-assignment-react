@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+# 한터글로벌 사전과제
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 이채영
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 사용방법
+- 레포지토리를 클론하고 ```npm install``` 사용해서 dependencies를 설치를 합니다.
 
-- Configure the top-level `parserOptions` property like this:
+- 터미널 창에 ```npm run dev```를 입력합니다.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- 브라우저에 `localhost:5174` 접속합니다.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 환경
+Node.js 와 npm이 설치된 환경에서 실행해주세요. 프로젝트에 사용된 버전은 아래와 같습니다.
+
+- ```node.js v21.7.2```
+- ```npm v10.5.1```
+
+
+### 기능
+**RESULT**
+- 카테고리별로 동일한 리스트가 보여집니다.
+- 카테고리 클릭시 해당하는 주소로 이동 합니다. 
+- 카테고리안의 컨텐츠는 무한스크롤이 가능합니다.
+- 카테고리안의 컨텐츠는 fetch를 통하여 데이터를 가져옵니다.
+- 컨텐츠를 가져오는 동안은 loading바를 통해서 데이터를 가져오고 있다는 표시를 해줍니다. 
+- page당 해당 컨텐츠는 4개씩 컨텐츠를 가져오고, 이후 가져올 데이터가없으면 더이상 로딩바가 보여지지않습니다.
+- 중간 배너는 무한 루프 기능을 지원합니다.
+- 또한 중간 배너는 오른쪽 왼쪽을 버튼을 통하여 좌우로 이동이 가능합니다. 
+- 해상도는 width 425px 에 최적화(fix)되어있습니다.
+
+### 방향성
+- 캐로셀(슬라이더)은 양옆의 이미지가 보여지지않고 (3개의 이미지대신 한개의 이미지만 보여질시),
+  한터글로벌 홈페이지에 있는 모양으로 작업시에는 css transition만을 사용하는 방식으로 처리할수있으나(reflow, repaint 작업의 최소화), 양옆의 이미지가 보여줘야하므로
+  동적으로 자바스크립트를 이용하여 만들어보았습니다. 조건은 한개씩 무한으로 움직이는 기능이였지만,
+  이후에 5개씩 슬라이드가 움직일수도있고, width가 변경될수도있는것을 고려하여 다양한 방식의 기능을 제공하도록 만들어보았습니다.
+
+- 무한스크롤의 경우는 단순히 무한으로 생성되는것보다, 실제로 데이터 fetch를 하여 가져올경우를 생각하여 fetch시켜주는 함수를 만들어서 구현해보았습니다.
+ 
+
+### 사용스택
+- 언어: Typescript
+- 라이브러리: React
+- css전처리기: scss
