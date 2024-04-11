@@ -124,7 +124,7 @@ const Carousel = () => {
 
   useEffect(() => {
     // setInterval 내부의 함수를 useCallback을 사용하여 만들어서 slideList를 참조할 수 있도록 합니다.
-    const interval = setInterval(intervalCallback, 3000);
+    const interval = setInterval(intervalCallback, 4000);
     return () => clearInterval(interval);
   }, [slideList]);
 

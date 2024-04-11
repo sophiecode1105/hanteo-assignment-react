@@ -21,6 +21,7 @@ const Card = ({ chartData }: { chartData: ChartData }) => {
               src={item.img}
               alt={`card-${idx}`}
             />
+            <div className={styles.card_info}>{item.singer}</div>
           </div>
         ))}
       </ul>
