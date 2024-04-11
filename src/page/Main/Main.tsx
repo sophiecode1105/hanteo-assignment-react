@@ -56,9 +56,11 @@ const Main = () => {
   return (
     <div className={styles.container}>
       <Carousel />
-      {cardList?.map((card, idx) => (
-        <Card key={`card-${idx}`} chartData={card} />
-      ))}
+      <div className={styles.cardlist_wrapper}>
+        {cardList?.map((card, idx) => (
+          <Card key={`card-${idx}`} chartData={card} />
+        ))}
+      </div>
       <div ref={target}></div>
       {isLoading && (
         <div className={styles.loading}>
