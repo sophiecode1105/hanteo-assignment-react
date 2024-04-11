@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(14,17,29,1);
+    padding-bottom: 180px;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+.loading {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+}
+.loading >img {
+    width: 100%;
+    height: 100%;
+}
+
+.cardlist_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

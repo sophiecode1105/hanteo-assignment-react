@@ -1,0 +1,71 @@
+.container {
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+.slider_wrapper {
+    display: flex;
+    width: max-content;
+    list-style: none;
+    padding: 0;
+    transform: translateX(-682.5);
+}
+
+.visible{
+    visibility: visible;
+} 
+
+.hidden{
+    visibility: hidden;
+}
+
+.slider_item {
+    width: 350px !important;
+    height: 130px;
+    border-radius: 10px 10px 0 0;
+    float: left;
+    cursor: pointer;
+}
+
+.slider_banner {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 10px 10px 0 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-use-select: none;
+    user-select: none;
+}
+
+.slider_item:not(:last-child) {
+    margin-right: 10px;
+}
+
+.default_button {
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background-color: grey;
+}
+
+.button_color {
+    background-color: blue;
+}
+
+
+
+.button_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.button_wrapper >button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+}
