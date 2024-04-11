@@ -12,13 +12,18 @@ const Carousel = () => {
   과제여구조건은 동일한 페이지를 구현해야하므로 props로 동적이게 내려받을 필요는 없어보였습니다. */
   const sliders = useRef<HTMLUListElement>(null);
   const container = useRef<HTMLDivElement>(null);
+  const [initialize, setInitialize] = useState(false);
   const [slidertWidth, setSliderWidth] = useState(350);
   const [marginRight, setMarginRight] = useState(10);
   const [initialTranslateX, setInitialTranslateX] = useState(682.5);
   const [slideList, setSliderList] = useState([
-    { idx: 0, img: banner1 },
-    { idx: 1, img: banner2 },
-    { idx: 2, img: banner3 },
+    { idx: 0, img: banner1, url: "https://www.hanteochart.com/" },
+    { idx: 1, img: banner2, url: "https://awards.hanteo.com/?m=false&l=ko" },
+    {
+      idx: 2,
+      img: banner3,
+      url: "https://news.sbs.co.kr/news/endPage.do?news_id=N1007393182",
+    },
   ]);
   const [isMoving, setisMoving] = useState(false);
   const [currentIdx, setcurrentIdx] = useState(0);
@@ -27,9 +32,11 @@ const Carousel = () => {
   const bufferSize = 2;
   //한번에 이동할 요소의 갯수
   const moveFactor = 1;
-  const delays = 0.5;
+  const delays = 0.3;
   /* 초기 셋팅을 해주는 함수. 앞뒤로 복사해줄 요소를 복사해줍니다. bufferSize와 moveFactor가 변경하여도 문제없이 작동하도록 합니다.*/
-  const setList = (initialList: { idx: number; img: string }[]) => {
+  const setList = (
+    initialList: { idx: number; img: string; url: string }[]
+  ) => {
     const newList = [
       ...initialList.slice(-bufferSize),
       ...initialList,
@@ -39,6 +46,7 @@ const Carousel = () => {
 
     const newIdx = bufferSize + currentIdx;
     setcurrentIdx(newIdx);
+    setInitialize(true);
   };
 
   const moveSlider = (direction: number) => {
@@ -112,7 +120,6 @@ const Carousel = () => {
 
   const intervalCallback = useCallback(() => {
     moveSlider(1);
-    console.log("?", slideList);
   }, [slideList]);
 
   useEffect(() => {
@@ -123,15 +130,22 @@ const Carousel = () => {
 
   return (
     <div className={styles.container} ref={container}>
-      <ul className={styles.slider_wrapper} ref={sliders}>
+      <ul
+        className={`${styles.slider_wrapper} ${
+          initialize ? styles.visible : styles.hidden
+        }`}
+        ref={sliders}
+      >
         {slideList.map((slider, idx) => {
           return (
             <li key={`slider-${idx}`} className={styles.slider_item}>
-              <img
-                className={styles.slider_banner}
-                src={slider.img}
-                alt={`banner-img-${idx}`}
-              />
+              <a href={slider.url} target="_blank" rel="noopener noreferrer">
+                <img
+                  className={styles.slider_banner}
+                  src={slider.img}
+                  alt={`banner-img-${idx}`}
+                />
+              </a>
             </li>
           );
         })}

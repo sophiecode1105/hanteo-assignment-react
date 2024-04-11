@@ -3,12 +3,22 @@
     overflow: hidden;
 }
 
+
+
 .slider_wrapper {
     display: flex;
     width: max-content;
     list-style: none;
     padding: 0;
     transform: translateX(-682.5);
+}
+
+.visible{
+    visibility: visible;
+} 
+
+.hidden{
+    visibility: hidden;
 }
 
 .slider_item {
