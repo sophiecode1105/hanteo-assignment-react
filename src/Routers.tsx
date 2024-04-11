@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Main from "./page/Main/Main";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
@@ -8,7 +8,7 @@ const Routers = () => {
     <BrowserRouter>
       <Nav />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Navigate to="/chart" />} />
         <Route path="/chart" element={<Main />} />
         <Route path="/whook" element={<Main />} />
         <Route path="/event" element={<Main />} />
