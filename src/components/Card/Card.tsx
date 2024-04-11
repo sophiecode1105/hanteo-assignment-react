@@ -4,7 +4,7 @@ export type ChartData = {
   title: string;
   list: {
     img: string;
-    singer: string;
+    info: string;
   }[];
 };
 
@@ -15,13 +15,13 @@ const Card = ({ chartData }: { chartData: ChartData }) => {
       <h1 className={styles.title}>{title}</h1>
       <ul className={styles.card_wrapper}>
         {list.map((item, idx) => (
-          <div key={`card-${idx}`} className={styles.card_item}>
+          <div key={`card-${title}-${idx}`} className={styles.card_item}>
             <img
               className={styles.card_img}
               src={item.img}
               alt={`card-${idx}`}
             />
-            <div className={styles.card_info}>{item.singer}</div>
+            <div className={styles.card_info}>{item.info}</div>
           </div>
         ))}
       </ul>

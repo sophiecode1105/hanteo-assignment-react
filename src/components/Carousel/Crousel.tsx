@@ -6,7 +6,7 @@ import banner3 from "../../assets/img/banner/main_banner_3.png";
 import arrow_left from "../../assets/icon/arrow_left.svg";
 import arrow_right from "../../assets/icon/arrow_right.svg";
 
-/* 목표: 재활용가능한 carousel만들기. 움직이는 갯수 및 사이즈에 관련없이 작동하도록 구현. */
+// 목표: 재활용가능한 carousel만들기. 움직이는 갯수 및 사이즈에 관련없이 작동하도록 구현하기.
 const Carousel = () => {
   /* 페이지별로 다른 이미지, 이미지 개수를 내려줘야할때는 Props를 활용할수있습니다. 
   과제여구조건은 동일한 페이지를 구현해야하므로 props로 동적이게 내려받을 필요는 없어보였습니다. */
@@ -33,7 +33,7 @@ const Carousel = () => {
   //한번에 이동할 요소의 갯수
   const moveFactor = 1;
   const delays = 0.3;
-  /* 초기 셋팅을 해주는 함수. 앞뒤로 복사해줄 요소를 복사해줍니다. bufferSize와 moveFactor가 변경하여도 문제없이 작동하도록 합니다.*/
+  // 초기 셋팅을 해주는 함수. 앞뒤로 복사해줄 요소를 복사해줍니다. bufferSize와 moveFactor가 변경하여도 문제없이 작동하도록 합니다.
   const setList = (
     initialList: { idx: number; img: string; url: string }[]
   ) => {
@@ -91,7 +91,7 @@ const Carousel = () => {
   };
 
   useEffect(() => {
-    /* css를통해서 slider의 width나 gap이 변하더라도, 동적으로 가져와서 변경시켜줄 수 있게 계산을 해줍니다. */
+    // css를통해서 slider의 width나 gap이 변하더라도, 동적으로 가져와서 변경시켜줄 수 있게 계산을 해줍니다.
     const sliderWrapper = sliders.current;
     if (container.current === null || sliderWrapper === null) return;
     const containerWidth = container.current.clientWidth;
@@ -105,7 +105,7 @@ const Carousel = () => {
     const margin = parseFloat(computedStyle.marginRight);
     setMarginRight(margin);
 
-    /* 요소를 정가운데에 위치하기위해서 계산을 해줍니다. css에서 값을 변경하게되어도 영향을 받지않습니다. */
+    // 요소를 정가운데에 위치하기위해서 계산을 해줍니다. css에서 값을 변경하게되어도 영향을 받지않습니다.
     const TotalBufferWidth =
       sliderItemWidth * bufferSize + margin * (bufferSize - 1);
     const visibleWidth = (containerWidth - (sliderItemWidth + margin * 2)) / 2;
@@ -114,7 +114,7 @@ const Carousel = () => {
     }px)`;
     setInitialTranslateX(TotalBufferWidth - visibleWidth);
 
-    /* list를 복사해주는 값. 무한슬라이더를 위하여 앞뒤로 값들을 복사해야합니다. */
+    // list를 복사해주는 값. 무한슬라이더를 위하여 앞뒤로 값들을 복사해야합니다.
     setList(slideList);
   }, []);
 

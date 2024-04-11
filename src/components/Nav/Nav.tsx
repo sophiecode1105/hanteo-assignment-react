@@ -20,19 +20,24 @@ const Nav = () => {
     { name: "충전소", location: "/charge" },
   ];
 
-  // onMouseDown, onMouseMove, onMouseUp, onMouseLeave 함수를 만들어서 드래그로 메뉴를 이동할 수 있도록 합니다.
+  // onMouseDown 함수: 마우스 버튼이 눌렸을 때 호출되는 함수입니다.
   const onMouseDown = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     if (menuRefs.current === null) return;
     setIsDown(true);
+    // 마우스가 눌린 지점의 x좌표를 startX에 저장합니다.
     setStartX(e.pageX - menuRefs.current.offsetLeft);
+    // 드래그가 시작될 때의 스크롤 위치를 scrollLeft에 저장합니다.
     setScrollLeft(menuRefs.current.scrollLeft);
   };
-
+  // onMouseMove 함수: 마우스를 움직일 때 호출되는 함수입니다.
   const onMouseMove = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
     if (!isDown || menuRefs.current === null) return;
     e.preventDefault();
+    // 현재 마우스의 x좌표를 계산합니다.
     const x = e.pageX - menuRefs.current.offsetLeft;
+    // 이동 거리를 계산합니다.
     const walk = (x - startX) * 1;
+    // 스크롤 위치를 조정하여 메뉴를 드래그한 만큼 이동합니다.
     menuRefs.current.scrollLeft = scrollLeft - walk;
   };
 
